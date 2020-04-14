@@ -4,7 +4,7 @@ import yaml
 import time
 import datetime
 
-INTERVAL = 10
+INTERVAL = 10 * 60
 schedule = {}
 
 def running(name):
