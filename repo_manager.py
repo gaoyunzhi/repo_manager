@@ -4,7 +4,7 @@ import yaml
 import time
 import datetime
 
-INTERVAL = 10
+INTERVAL = 10 * 60
 schedule = {}
 
 def running(name):
@@ -48,11 +48,8 @@ def processSchedule(configs):
 		args = ['notail']
 		if config.get('restart_only_afternoon'):
 			args.append('skip')
-		print('cd ../%s && python3 %s.py %s' % (
-			dirname, setup_file, ' '.join(args)))
 		r = os.popen('cd ../%s && python3 %s.py %s' % (
 			dirname, setup_file, ' '.join(args))).read()
-		print(r)
 
 def process(dirname, runner_name, config, dep_installed):
 	if not config.get('no_auto_commit'):
