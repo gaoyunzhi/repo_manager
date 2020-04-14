@@ -6,4 +6,4 @@ weibo_aggregator:
 daily_summary:
   pause_before_restart: 600
 novel_place_holder:
-  custom_setup_name: aggregator
+  custom_setup_name: aggregate
