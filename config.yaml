@@ -1,0 +1,6 @@
+loop_pdf:
+  no_auto_commit: True
+weibo_aggregator:
+  pause_before_restart: 60
+daily_summary:
+  pause_before_restart: 600
