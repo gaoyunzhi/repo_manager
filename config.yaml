@@ -1,5 +1,6 @@
 loop_pdf:
   no_auto_commit: True
+  no_restart: True
 weibo_aggregator:
   pause_before_restart: 60
 daily_summary:
