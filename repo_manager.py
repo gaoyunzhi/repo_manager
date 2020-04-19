@@ -28,7 +28,7 @@ def readFile(fn):
 
 def isAfternoon():
 	dt = datetime.datetime.now()
-	return dt.time() > datetime.time(12)
+	return dt.hour > 12
 
 def okToRestart(config):
 	if config.get('restart_only_afternoon'):
