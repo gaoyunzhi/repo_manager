@@ -8,6 +8,9 @@ import random
 INTERVAL = 10 * 60
 schedule = {}
 
+def log(text):
+	print('%d:%d %s\n' % (datetime.datetime.now().hour, datetime.datetime.now().minute, text))
+
 def running(name):
 	r = os.popen('ps aux | grep ython | grep %s' % name).read()
 	# if not running, we will have one empty line, one grep line
@@ -37,7 +40,8 @@ def okToRestart(config):
 	return True
 
 def processSchedule(configs):
-	print('schedule', schedule)
+	log('schedule')
+	print(schedule)
 	for key in list(schedule.keys()):
 		print(key, 1)
 		if schedule[key] > time.time():
@@ -88,6 +92,7 @@ def loopImp():
 	processSchedule(config)
 
 def loop():
+	log('loop')
 	loopImp()
 	threading.Timer(INTERVAL, loop).start() 
 
