@@ -33,6 +33,8 @@ def isAfternoon():
 def okToRestart(config):
 	if config.get('restart_only_afternoon'):
 		return isAfternoon()
+	if config.get('no_restart'):
+		return False
 	return True
 
 def processSchedule(configs):

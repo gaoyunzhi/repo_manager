@@ -1,0 +1,5 @@
+douban douban
+album_bot album_bot
+pic_bot pic_bot
+moderator moderate
+wc forward
