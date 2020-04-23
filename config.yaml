@@ -10,4 +10,4 @@ novel_place_holder:
 douban:
   pause_before_restart: 60
 forward:
-  no_restart: True
+  daily_restart: True

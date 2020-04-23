@@ -3,6 +3,7 @@ import threading
 import yaml
 import time
 import datetime
+import random
 
 INTERVAL = 10 * 60
 schedule = {}
@@ -33,8 +34,6 @@ def isAfternoon():
 def okToRestart(config):
 	if config.get('restart_only_afternoon'):
 		return isAfternoon()
-	if config.get('no_restart'):
-		return False
 	return True
 
 def processSchedule(configs):
@@ -62,6 +61,9 @@ def process(dirname, runner_name, config, dep_installed):
 
 	r = os.popen('cd ../%s && git fetch origin && git rebase origin/master && git push -u -f' % dirname).read()
 	if ('up to date' not in r or dep_installed) and okToRestart(config):
+		kill(runner_name)
+
+	if config.get('daily_restart') and random.random() < INTERVAL * 1.0 / (60 * 60 * 24):
 		kill(runner_name)
 
 	if (not running(runner_name)) and (dirname, runner_name) not in schedule:
