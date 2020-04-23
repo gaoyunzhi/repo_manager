@@ -39,8 +39,10 @@ def okToRestart(config):
 def processSchedule(configs):
 	print('schedule', schedule)
 	for key in list(schedule.keys()):
+		print(key, 1)
 		if schedule[key] > time.time():
 			continue
+		print(key, 2)
 		del schedule[key]
 		dirname, runner_name = key
 		print(dirname, runner_name, running(runner_name))
