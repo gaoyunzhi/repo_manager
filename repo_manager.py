@@ -38,11 +38,13 @@ def okToRestart(config):
 	return True
 
 def processSchedule(configs):
+	print('schedule', schedule)
 	for key in list(schedule.keys()):
 		if schedule[key] > time.time():
 			continue
 		del schedule[key]
 		dirname, runner_name = key
+		print(dirname, runner_name, running(runner_name))
 		if running(runner_name):
 			continue
 		config = configs.get(runner_name, {})
@@ -50,6 +52,7 @@ def processSchedule(configs):
 		args = ['notail']
 		if config.get('restart_only_afternoon'):
 			args.append('skip')
+		print(dirname, setup_file)
 		r = os.popen('cd ../%s && python3 %s.py %s' % (
 			dirname, setup_file, ' '.join(args))).read()
 
