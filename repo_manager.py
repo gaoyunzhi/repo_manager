@@ -58,6 +58,8 @@ def processSchedule(configs):
 		if config.get('restart_only_afternoon'):
 			args.append('skip')
 		print(dirname, setup_file)
+		print('cd ../%s && python3 %s.py %s' % (
+			dirname, setup_file, ' '.join(args)))
 		r = os.popen('cd ../%s && python3 %s.py %s' % (
 			dirname, setup_file, ' '.join(args))).read()
 
