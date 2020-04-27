@@ -11,3 +11,5 @@ douban:
   pause_before_restart: 60
 forward:
   daily_restart: True
+subscription_v3:
+  pause_before_restart: 30
