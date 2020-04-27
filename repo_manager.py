@@ -60,7 +60,7 @@ def processSchedule(configs):
 		print(dirname, setup_file)
 		print('cd ../%s && python3 %s.py %s' % (
 			dirname, setup_file, ' '.join(args)))
-		os.system('cd ../%s && nohup python3 %s.py % &' % (
+		os.system('cd ../%s && nohup python3 %s.py %s &' % (
 			dirname, setup_file, ' '.join(args)))
 		print('finish', key)
 
