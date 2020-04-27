@@ -60,8 +60,9 @@ def processSchedule(configs):
 		print(dirname, setup_file)
 		print('cd ../%s && python3 %s.py %s' % (
 			dirname, setup_file, ' '.join(args)))
-		r = os.popen('cd ../%s && python3 %s.py %s' % (
-			dirname, setup_file, ' '.join(args))).read()
+		os.system('cd ../%s && python3 %s.py %s' % (
+			dirname, setup_file, ' '.join(args)))
+		print('finish', key)
 
 def process(dirname, runner_name, config, dep_installed):
 	if not config.get('no_auto_commit'):
