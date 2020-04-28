@@ -69,7 +69,8 @@ def process(dirname, runner_name, config, dep_installed):
 		os.popen('cd ../%s && git add . && git commit -m commit && git push -u -f' % dirname).read()
 
 	r = os.popen('cd ../%s && git fetch origin && git rebase origin/master && git push -u -f' % dirname).read()
-	if ('up to date' not in r or dep_installed) and okToRestart(config):
+	if (('up to date' not in r and 'commit or stash them' not in r) or \
+		dep_installed) and okToRestart(config):
 		kill(runner_name)
 
 	if config.get('daily_restart') and random.random() < INTERVAL * 1.0 / (60 * 60 * 24):
