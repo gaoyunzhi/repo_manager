@@ -83,6 +83,9 @@ def process(dirname, runner_name, config, dep_installed):
 			time.time() + config.get('pause_before_restart', 0) * 60
 
 def loopImp():
+	for _ in range(5):
+		kill('setup')
+		
 	r = os.popen('pip3 install --user -r all_dependencies.txt --upgrade').read()
 	dep_installed = 'Successfully installed' in r
 
