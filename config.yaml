@@ -10,6 +10,10 @@ novel_place_holder:
 douban:
   pause_before_restart: 60
 forward:
-  daily_restart: True
+  restart_per_hour: 24
 subscription_v3:
   pause_before_restart: 30
+export:
+  restart_per_hour: 1
+album_bot:
+  restart_per_hour: 1

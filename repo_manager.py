@@ -73,8 +73,10 @@ def process(dirname, runner_name, config, dep_installed):
 		dep_installed) and okToRestart(config):
 		kill(runner_name)
 
-	if config.get('daily_restart') and random.random() < INTERVAL * 1.0 / (60 * 60 * 24):
-		kill(runner_name)
+	if config.get('restart_per_hour'):
+		restart_interval = float(config.get('restart_per_hour'))
+		if random.random() < INTERVAL * 1.0 / (60 * 60 * restart_interval):
+			kill(runner_name)
 
 	if (not running(runner_name)) and (dirname, runner_name) not in schedule:
 		schedule[(dirname, runner_name)] = \
