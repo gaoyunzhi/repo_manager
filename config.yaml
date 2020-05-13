@@ -2,7 +2,9 @@ loop_pdf:
   no_auto_commit: True
   restart_only_afternoon: True
 weibo_aggregator:
-  pause_before_restart: 60
+  pause_before_restart: 30
+weixin_aggregator:
+  pause_before_restart: 30
 daily_summary:
   pause_before_restart: 600
 novel_place_holder:
