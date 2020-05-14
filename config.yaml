@@ -4,7 +4,7 @@ loop_pdf:
 weibo_aggregator:
   pause_before_restart: 30
 weixin_aggregator:
-  pause_before_restart: 30
+  pause_before_restart: 10
 daily_summary:
   pause_before_restart: 600
 novel_place_holder:
