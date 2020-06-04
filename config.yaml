@@ -20,3 +20,5 @@ export:
   restart_per_hour: 1
 album_bot:
   restart_per_hour: 1
+channel_push:
+  restart_per_hour: 3
