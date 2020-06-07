@@ -2,7 +2,6 @@ loop_pdf:
   no_auto_commit: True
   restart_only_afternoon: True
 weibo_aggregator:
-  pause_before_restart: 30
   restart_per_hour: 1
 weixin_aggregator:
   pause_before_restart: 10
