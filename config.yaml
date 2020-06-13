@@ -3,6 +3,8 @@ loop_pdf:
   restart_only_afternoon: True
 weibo_aggregator:
   restart_per_hour: 1
+twitter_bot:
+  restart_per_hour: 1
 weixin_aggregator:
   pause_before_restart: 10
 daily_summary:
