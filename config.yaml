@@ -23,3 +23,5 @@ album_bot:
   restart_per_hour: 1
 channel_push:
   restart_per_hour: 3
+weibo_subscription_bot:
+  restart_per_hour: 3
