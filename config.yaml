@@ -26,3 +26,5 @@ channel_push:
   restart_per_hour: 3
 weibo_subscription_bot:
   restart_per_hour: 3
+msg_index_bot:
+  restart_per_hour: 3
