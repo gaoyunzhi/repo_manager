@@ -12,3 +12,4 @@ twitter_2_album
 web_2_album
 weibo_2_album
 plain_db
+link_extractor
