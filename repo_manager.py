@@ -11,9 +11,14 @@ schedule = {}
 def log(text):
 	print('%d:%d %s\n' % (datetime.datetime.now().hour, datetime.datetime.now().minute, text))
 
+def runCommand(command):
+	r = subprocess.Popen(command, shell=True, stdin=None, 
+		stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	return r.stdout.read() + r.stderr.read()
+
 def running(name):
-	r = os.popen('ps aux | grep ython | grep %s' % name).read()
-	# if not running, we will have one empty line, one grep line
+	r = runCommand('ps aux | grep ython | grep %s' % name)
+	print('running?', r, len(r.split('\n')) > 2)
 	return len(r.split('\n')) > 2 
 
 def kill(name):
