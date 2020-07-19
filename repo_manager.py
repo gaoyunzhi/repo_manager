@@ -15,7 +15,8 @@ def log(text):
 def runCommand(command):
 	r = subprocess.Popen(command, shell=True, stdin=None, 
 		stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-	return (str(r.stdout.read()) + str(r.stderr.read())).strip()
+	return (r.stdout.read().decode("utf-8").strip() + 
+		r.stdout.read().decode('utf-8').strip())
 
 def running(name):
 	r = runCommand('ps aux | grep ython | grep %s' % name)
