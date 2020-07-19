@@ -64,7 +64,7 @@ def processSchedule(configs):
 
 def process(dirname, runner_name, config, dep_installed):
 	if not config.get('no_auto_commit'):
-		os.popen('cd ../%s && git add . && git commit -m commit && git push -u -f' % dirname).read()
+		runCommand('cd ../%s && git add . && git commit -m commit && git push -u -f' % dirname)
 
 	r = os.popen('cd ../%s && git fetch origin && git rebase origin/master && git push -u -f' % dirname).read()
 	if (('up to date' not in r and 'commit or stash them' not in r and not config.get('no_auto_commit')) or \
@@ -83,18 +83,18 @@ def process(dirname, runner_name, config, dep_installed):
 def loopImp():
 	for _ in range(5):
 		kill('setup')
-		
-	r = os.popen('pip3 install --user -r all_dependencies.txt --upgrade').read()
-	dep_installed = 'Successfully installed' in r
+
+	dep_installed = 'Successfully installed' in runCommand(
+		'pip3 install --user -r all_dependencies.txt --upgrade')
 
 	with open('config.yaml') as f:
 		config = yaml.load(f, Loader=yaml.FullLoader)
-
 	repo_names = readFile('repo_names')
 
 	for dirname in repo_names:
 		runner_name = repo_names[dirname]
-		process(dirname, runner_name, config.get(runner_name, {}), dep_installed)
+		process(dirname, runner_name, 
+			config.get(runner_name, {}), dep_installed)
 
 	processSchedule(config)
 
