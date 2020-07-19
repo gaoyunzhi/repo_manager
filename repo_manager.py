@@ -1,4 +1,3 @@
-import os
 import threading
 import yaml
 import time
@@ -23,7 +22,7 @@ def running(name):
 	return len(r.split('\n')) > 1 
 
 def kill(name):
-	os.system("ps aux | grep ython | grep %s | awk '{print $2}' | xargs kill -9" % name)
+	runCommand("ps aux | grep ython | grep %s | awk '{print $2}' | xargs kill -9" % name)
 
 def readFile(fn):
 	result = {}
@@ -58,17 +57,20 @@ def processSchedule(configs):
 		args = ['notail']
 		if config.get('restart_only_afternoon'):
 			args.append('skip')
-		os.system('cd ../%s && nohup python3 %s.py %s &' % (
+		runCommand('cd ../%s && nohup python3 %s.py %s &' % (
 			dirname, setup_file, ' '.join(args)))
 		log('rerun: ' + runner_name)
+
+def repo_fetch(dirname):
+	repo_fetch = runCommand('cd ../%s && git fetch origin && git rebase origin/master && git push -u -f' % dirname)
+	return ('up to date' not in repo_fetch and 
+		'commit or stash them' not in repo_fetch)
 
 def process(dirname, runner_name, config, dep_installed):
 	if not config.get('no_auto_commit'):
 		runCommand('cd ../%s && git add . && git commit -m commit && git push -u -f' % dirname)
 
-	r = os.popen('cd ../%s && git fetch origin && git rebase origin/master && git push -u -f' % dirname).read()
-	if (('up to date' not in r and 'commit or stash them' not in r and not config.get('no_auto_commit')) or \
-		dep_installed) and okToRestart(config):
+	if (repo_fetch(dirname) or dep_installed) and okToRestart(config):
 		kill(runner_name)
 
 	if config.get('restart_per_hour'):
