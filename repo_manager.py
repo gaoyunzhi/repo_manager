@@ -19,7 +19,8 @@ def runCommand(command):
 
 def running(name):
 	r = runCommand('ps aux | grep ython | grep %s' % name)
-	print('running?', r, len(r.split('\n')) > 2)
+	print('running?', r)
+	print( len(r.split('\n')) > 2)
 	return len(r.split('\n')) > 2 
 
 def kill(name):
