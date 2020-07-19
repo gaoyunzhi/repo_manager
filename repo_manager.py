@@ -40,16 +40,11 @@ def okToRestart(config):
 	return True
 
 def processSchedule(configs):
-	log('schedule')
-	print(schedule)
 	for key in list(schedule.keys()):
-		print(key, 1)
 		if schedule[key] > time.time():
 			continue
-		print(key, 2)
 		del schedule[key]
 		dirname, runner_name = key
-		print(dirname, runner_name, running(runner_name))
 		if running(runner_name):
 			continue
 		config = configs.get(runner_name, {})
@@ -57,12 +52,9 @@ def processSchedule(configs):
 		args = ['notail']
 		if config.get('restart_only_afternoon'):
 			args.append('skip')
-		print(dirname, setup_file)
-		print('cd ../%s && python3 %s.py %s' % (
-			dirname, setup_file, ' '.join(args)))
 		os.system('cd ../%s && nohup python3 %s.py %s &' % (
 			dirname, setup_file, ' '.join(args)))
-		print('finish', key)
+		log('rerun key: ' + key)
 
 def process(dirname, runner_name, config, dep_installed):
 	if not config.get('no_auto_commit'):
@@ -71,7 +63,6 @@ def process(dirname, runner_name, config, dep_installed):
 	r = os.popen('cd ../%s && git fetch origin && git rebase origin/master && git push -u -f' % dirname).read()
 	if (('up to date' not in r and 'commit or stash them' not in r and not config.get('no_auto_commit')) or \
 		dep_installed) and okToRestart(config):
-		print('process2', dirname)
 		kill(runner_name)
 
 	if config.get('restart_per_hour'):
@@ -102,10 +93,8 @@ def loopImp():
 	processSchedule(config)
 
 def loop():
-	log('loop')
 	loopImp()
 	threading.Timer(INTERVAL, loop).start() 
 
 if __name__ == '__main__':
-	print('START')
 	loop()
