@@ -20,9 +20,7 @@ def runCommand(command):
 
 def running(name):
 	r = runCommand('ps aux | grep ython | grep %s' % name)
-	print('running?', r)
-	print( len(r.split('\n')) > 2)
-	return len(r.split('\n')) > 2 
+	return len(r.split('\n')) > 1 
 
 def kill(name):
 	os.system("ps aux | grep ython | grep %s | awk '{print $2}' | xargs kill -9" % name)
@@ -62,7 +60,7 @@ def processSchedule(configs):
 			args.append('skip')
 		os.system('cd ../%s && nohup python3 %s.py %s &' % (
 			dirname, setup_file, ' '.join(args)))
-		log('rerun key: ' + key)
+		log('rerun: ' + runner_name)
 
 def process(dirname, runner_name, config, dep_installed):
 	if not config.get('no_auto_commit'):
