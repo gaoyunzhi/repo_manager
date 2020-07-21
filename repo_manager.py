@@ -63,8 +63,11 @@ def processSchedule(configs):
 
 def repo_fetch(dirname):
 	repo_fetch = runCommand('cd ../%s && git fetch origin && git rebase origin/master && git push -u -f' % dirname)
-	return ('up to date' not in repo_fetch and 
+	result = ('up to date' not in repo_fetch and 
 		'commit or stash them' not in repo_fetch)
+	if result:
+		print('repo fetch', dirname)
+	return result
 
 def process(dirname, runner_name, config, dep_installed):
 	if not config.get('no_auto_commit'):
@@ -88,6 +91,9 @@ def loopImp():
 
 	dep_installed = 'Successfully installed' in runCommand(
 		'pip3 install --user -r all_dependencies.txt --upgrade')
+
+	if dep_installed:
+		print('dep installed')
 
 	with open('config.yaml') as f:
 		config = yaml.load(f, Loader=yaml.FullLoader)
