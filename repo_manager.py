@@ -76,8 +76,6 @@ def process(dirname, runner_name, config, dep_installed):
 
 	if (repo_fetch(dirname) or dep_installed) and okToRestart(config):
 		kill(runner_name)
-		if not running(runner_name):
-			print(runner_name, 'killed.')
 
 	if config.get('restart_per_hour'):
 		restart_interval = float(config.get('restart_per_hour'))
