@@ -57,9 +57,10 @@ def processSchedule(configs):
 		args = ['notail']
 		if config.get('restart_only_afternoon'):
 			args.append('skip')
+		log('rerun_start: ' + runner_name)
 		runCommand('cd ../%s && nohup python3 %s.py %s &' % (
 			dirname, setup_file, ' '.join(args)))
-		log('rerun: ' + runner_name)
+		log('rerun_end: ' + runner_name)
 
 def repo_fetch(dirname):
 	repo_fetch = runCommand('cd ../%s && git fetch origin && git rebase origin/master && git push -u -f' % dirname)
