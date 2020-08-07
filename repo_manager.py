@@ -90,6 +90,7 @@ def loopImp():
 	for _ in range(5):
 		kill('setup')
 		kill('nohup.out')
+		kill('tail')
 
 	dep_installed = 'Successfully installed' in runCommand(
 		'pip3 install --user -r all_dependencies.txt --upgrade')
