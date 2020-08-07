@@ -24,8 +24,7 @@ def running(name):
 
 def kill(name, prefix='ython'):
 	command = "ps aux | grep %s | grep %s | awk '{print $2}' | xargs kill -9" % (prefix, name)
-	print(command)
-	os.system(command)
+	runCommand(command)
 
 def readFile(fn):
 	result = {}
