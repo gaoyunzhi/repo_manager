@@ -23,7 +23,7 @@ def running(name):
 	return len(r.split('\n')) > 1 
 
 def kill(name):
-	runCommand("ps aux | grep ython | grep %s | awk '{print $2}' | xargs kill -9" % name)
+	os.system("ps aux | grep ython | grep %s | awk '{print $2}' | xargs kill -9" % name)
 
 def readFile(fn):
 	result = {}
