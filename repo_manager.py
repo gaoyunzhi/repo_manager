@@ -89,6 +89,7 @@ def process(dirname, runner_name, config, dep_installed):
 def loopImp():
 	for _ in range(5):
 		kill('setup')
+		kill('nohup.out')
 
 	dep_installed = 'Successfully installed' in runCommand(
 		'pip3 install --user -r all_dependencies.txt --upgrade')
