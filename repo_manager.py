@@ -22,10 +22,9 @@ def running(name):
 	r = runCommand('ps aux | grep ython | grep %s' % name)
 	return len(r.split('\n')) > 1 
 
-def kill(name):
-	command = "ps aux | grep ython | grep %s | awk '{print $2}' | xargs kill -9" % name
-	print('kill', name, command)
-	os.system(command)
+def kill(name, prefix='ython'):
+	command = "ps aux | grep %s | grep %s | awk '{print $2}' | xargs kill -9" % (prefix, name)
+	runCommand(command)
 
 def readFile(fn):
 	result = {}
@@ -91,8 +90,7 @@ def process(dirname, runner_name, config, dep_installed):
 def loopImp():
 	for _ in range(5):
 		kill('setup')
-		kill('nohup.out')
-		kill('tail')
+		kill('nohup.out', prefix='tail')
 
 	dep_installed = 'Successfully installed' in runCommand(
 		'pip3 install --user -r all_dependencies.txt --upgrade')
