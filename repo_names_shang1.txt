@@ -1,0 +1,3 @@
+web_subscription_bot web_subscription_bot
+weibo_subscription_bot weibo_subscription_bot
+en_2_zh en_2_zh
