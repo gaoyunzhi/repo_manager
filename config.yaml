@@ -10,6 +10,8 @@ weixin_aggregator:
   restart_per_hour: 3
 en_2_zh_bot:
   restart_per_hour: 3
+cn_tw_translate:
+  restart_per_hour: 3
 daily_summary:
   pause_before_restart: 600
 novel_place_holder:
