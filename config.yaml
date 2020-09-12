@@ -8,6 +8,8 @@ twitter_bot:
 weixin_aggregator:
   pause_before_restart: 10
   restart_per_hour: 3
+en_2_zh_bot:
+  restart_per_hour: 3
 daily_summary:
   pause_before_restart: 600
 novel_place_holder:
