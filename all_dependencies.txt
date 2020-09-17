@@ -16,3 +16,4 @@ link_extractor
 weiboo
 webgram
 post_2_album
+hanzidentifier
