@@ -1,1 +1,2 @@
 moderator_spam_fighter_bot moderate
+msg_index_bot msg_index_bot
