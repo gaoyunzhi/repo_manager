@@ -4,7 +4,6 @@ channel2pdf
 export_to_telegraph
 news_2_pdf
 pic_cut
-python-telegram-bot
 pyyaml
 readee
 telegram_util
