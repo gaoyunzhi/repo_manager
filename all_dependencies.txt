@@ -16,3 +16,4 @@ weiboo
 webgram
 post_2_album
 hanzidentifier
+python-telegram-bot==12.8
