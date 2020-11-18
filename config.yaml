@@ -20,8 +20,6 @@ douban:
   pause_before_restart: 60
 forward:
   restart_per_hour: 3
-subscription_v3:
-  pause_before_restart: 30
 export:
   restart_per_hour: 1
 album_bot:
