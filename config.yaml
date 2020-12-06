@@ -5,19 +5,12 @@ weibo_aggregator:
   restart_per_hour: 1
 twitter_bot:
   restart_per_hour: 1
-weixin_aggregator:
-  pause_before_restart: 10
-  restart_per_hour: 3
 en_2_zh_bot:
   restart_per_hour: 3
 cn_tw_translate:
   restart_per_hour: 3
-daily_summary:
-  pause_before_restart: 600
 novel_place_holder:
   custom_setup_name: aggregate
-douban:
-  pause_before_restart: 60
 forward:
   restart_per_hour: 3
 export:

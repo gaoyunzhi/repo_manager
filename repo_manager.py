@@ -46,22 +46,14 @@ def okToRestart(config):
 		return isAfternoon()
 	return True
 
-def processSchedule(configs):
-	for key in list(schedule.keys()):
-		if schedule[key] > time.time():
-			continue
-		del schedule[key]
-		dirname, runner_name = key
-		if running(runner_name):
-			continue
-		config = configs.get(runner_name, {})
-		setup_file = config.get('custom_setup_name', 'setup')
-		args = ['notail']
-		if config.get('restart_only_afternoon'):
-			args.append('skip')
-		os.system('cd ../%s && nohup python3 %s.py %s &' % (
-			dirname, setup_file, ' '.join(args)))
-		log('rerun: ' + runner_name)
+def rerun(dirname, config, runner_name):
+	setup_file = config.get('custom_setup_name', 'setup')
+	args = ['notail']
+	if config.get('restart_only_afternoon'):
+		args.append('skip')
+	os.system('cd ../%s && nohup python3 %s.py %s &' % (
+		dirname, setup_file, ' '.join(args)))
+	log('rerun: ' + runner_name)
 
 def repo_fetch(dirname):
 	repo_fetch = runCommand('cd ../%s && git fetch origin && git rebase origin/master && git push -u -f' % dirname)
@@ -71,21 +63,23 @@ def repo_fetch(dirname):
 		print('repo fetch', dirname)
 	return result
 
+def shouldRerun(dirname, runner_name, config, dep_installed):
+	if (repo_fetch(dirname) or dep_installed) and okToRestart(config):
+		return True
+	if not running(runner_name):
+		return True
+	if config.get('restart_per_hour'):
+		restart_interval = float(config.get('restart_per_hour'))
+		if random.random() < INTERVAL * 1.0 / (60 * 60 * restart_interval):
+			return True
+	return False
+
 def process(dirname, runner_name, config, dep_installed):
 	if not config.get('no_auto_commit'):
 		runCommand('cd ../%s && git add . && git commit -m commit && git push -u -f' % dirname)
 
-	if (repo_fetch(dirname) or dep_installed) and okToRestart(config):
-		kill(runner_name)
-
-	if config.get('restart_per_hour'):
-		restart_interval = float(config.get('restart_per_hour'))
-		if random.random() < INTERVAL * 1.0 / (60 * 60 * restart_interval):
-			kill(runner_name)
-
-	if (not running(runner_name)) and (dirname, runner_name) not in schedule:
-		schedule[(dirname, runner_name)] = \
-			time.time() + config.get('pause_before_restart', 0) * 60
+	if shouldRerun(dirname, runner_name, config, dep_installed):
+		rerun(dirname, config, runner_name)
 
 def loopImp():
 	for _ in range(5):
@@ -106,8 +100,6 @@ def loopImp():
 		runner_name = repo_names[dirname]
 		process(dirname, runner_name, 
 			config.get(runner_name, {}), dep_installed)
-
-	processSchedule(config)
 
 def loop():
 	loopImp()
