@@ -66,6 +66,7 @@ def repo_fetch(dirname):
 def shouldRerun(dirname, runner_name, config, dep_installed):
 	if (repo_fetch(dirname) or dep_installed) and okToRestart(config):
 		return True
+	print('running', runner_name, running(runner_name))
 	if not running(runner_name):
 		return True
 	if config.get('restart_per_hour'):
