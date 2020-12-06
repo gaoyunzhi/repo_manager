@@ -101,6 +101,8 @@ def loopImp():
 		process(dirname, runner_name, 
 			config.get(runner_name, {}), dep_installed)
 
+	log('loop end')
+
 def loop():
 	loopImp()
 	threading.Timer(INTERVAL, loop).start() 
