@@ -69,7 +69,6 @@ def repo_fetch(dirname):
 def shouldRerun(dirname, runner_name, config, dep_installed):
 	if (repo_fetch(dirname) or dep_installed) and okToRestart(config):
 		return True
-	print('running', runner_name, running(runner_name))
 	if not running(runner_name):
 		return True
 	if config.get('restart_per_hour'):
@@ -83,7 +82,6 @@ def process(dirname, runner_name, config, dep_installed):
 		runCommand('cd ../%s && git add . && git commit -m commit && git push -u -f' % dirname)
 
 	if shouldRerun(dirname, runner_name, config, dep_installed):
-		log('should rerun: ' + runner_name)
 		rerun(dirname, config, runner_name)
 
 def loopImp():
@@ -105,8 +103,6 @@ def loopImp():
 		runner_name = repo_names[dirname]
 		process(dirname, runner_name, 
 			config.get(runner_name, {}), dep_installed)
-
-	log('loop end')
 
 def loop():
 	loopImp()
