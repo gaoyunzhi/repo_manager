@@ -10,7 +10,7 @@ INTERVAL = 10 * 60
 schedule = {}
 
 def log(text):
-	print('%d:%d %s\n' % (datetime.datetime.now().hour, datetime.datetime.now().minute, text))
+	print('%d:%d %s' % (datetime.datetime.now().hour, datetime.datetime.now().minute, text))
 
 def runCommand(command):
 	r = subprocess.Popen(command, shell=True, stdin=None, 
