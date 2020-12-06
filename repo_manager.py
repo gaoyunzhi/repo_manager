@@ -79,6 +79,7 @@ def process(dirname, runner_name, config, dep_installed):
 		runCommand('cd ../%s && git add . && git commit -m commit && git push -u -f' % dirname)
 
 	if shouldRerun(dirname, runner_name, config, dep_installed):
+		log('should rerun: ' + runner_name)
 		rerun(dirname, config, runner_name)
 
 def loopImp():
