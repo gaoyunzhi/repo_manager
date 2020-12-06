@@ -19,11 +19,12 @@ def runCommand(command):
 		r.stdout.read().decode('utf-8').strip())
 
 def running(name):
-	r = runCommand('ps aux | grep ython | grep %s' % name)
-	print(r.split('\n'))
-	print(len(r.split('\n')))
-	return len(r.split('\n')) > 1 
-
+	r = runCommand('ps aux | grep %s' % name)
+	for command in r.split('\n'):
+		if 'ython' in command and '.py' in command:
+			return True
+	return False
+ 
 def kill(name, prefix='ython'):
 	command = "ps aux | grep %s | grep %s | awk '{print $2}' | xargs kill -9" % (prefix, name)
 	runCommand(command)
