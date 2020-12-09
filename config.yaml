@@ -24,4 +24,4 @@ weibo_subscription_bot:
 web_subscription_bot:
   restart_per_hour: 3
 msg_index_bot:
-  restart_per_hour: 3
+  restart_per_hour: 1
