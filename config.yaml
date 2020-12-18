@@ -11,6 +11,8 @@ cn_tw_translate:
   restart_per_hour: 3
 novel_place_holder:
   custom_setup_name: aggregate
+post_twitter:
+  custom_setup_name: post_twitter
 forward:
   restart_per_hour: 3
 export:
