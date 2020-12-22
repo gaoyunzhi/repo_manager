@@ -47,6 +47,9 @@ def isAfternoon():
 def okToRestart(config):
 	if config.get('restart_only_afternoon'):
 		return isAfternoon()
+	if config.get('run_per_hour'):
+		run_interval = float(config.get('run_per_hour'))
+		return random.random() < INTERVAL * 1.0 / (60 * 60 * run_interval)
 	return True
 
 def rerun(dirname, config, runner_name):
