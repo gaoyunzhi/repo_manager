@@ -17,4 +17,5 @@ webgram
 post_2_album
 hanzidentifier
 image
+gphoto_2_album
 python-telegram-bot==12.8
