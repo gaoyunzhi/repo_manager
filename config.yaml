@@ -16,6 +16,9 @@ post_twitter:
 english_learning:
   custom_setup_name: english_learning
   run_per_hour: 15
+promote_telegram:
+  custom_setup_name: telegram_promote
+  run_per_hour: 5
 forward:
   restart_per_hour: 3
 export:
