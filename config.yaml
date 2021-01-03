@@ -18,7 +18,6 @@ english_learning:
   run_per_hour: 15
 telegram_promote:
   custom_setup_name: telegram_promote
-  run_per_hour: 1
 forward:
   restart_per_hour: 3
 export:
