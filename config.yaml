@@ -13,6 +13,8 @@ novel_place_holder:
   custom_setup_name: aggregate
 post_twitter:
   custom_setup_name: post_twitter
+post_douban:
+  custom_setup_name: post_douban
 english_learning:
   custom_setup_name: english_learning
   run_per_hour: 15
