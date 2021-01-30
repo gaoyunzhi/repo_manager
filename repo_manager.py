@@ -47,9 +47,6 @@ def isAfternoon():
 def okToRestart(config):
 	if config.get('restart_only_afternoon'):
 		return isAfternoon()
-	if config.get('run_per_hour'):
-		run_interval = float(config.get('run_per_hour'))
-		return random.random() < INTERVAL * 1.0 / (60 * 60 * run_interval)
 	return True
 
 def rerun(dirname, config, runner_name):
@@ -70,7 +67,13 @@ def repo_fetch(dirname):
 	return result
 
 def shouldRerun(dirname, runner_name, config, dep_installed):
-	if (repo_fetch(dirname) or dep_installed) and okToRestart(config):
+	updated = repo_fetch(dirname) or dep_installed
+	if config.get('run_per_hour'):
+		if running(runner_name):
+			return False
+		run_interval = float(config.get('run_per_hour'))
+		return random.random() < INTERVAL * 1.0 / (60 * 60 * run_interval)
+	if updated and okToRestart(config):
 		return True
 	if not running(runner_name):
 		return True
